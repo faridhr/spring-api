@@ -1,21 +1,30 @@
 package com.springapi.springapi.model.entities;
 
-public class Response<T> {
 
-    private String message;
+public class Response<T, S> {
+
+    private S message;
 
     private Integer responseCode;
 
-    private T data;
+    private Integer length;
 
-    private static Response response;
+    private T payloads;
 
+    public Response() {
+    }
 
-    public String getMessage() {
+    public Response(S message, Integer responseCode, T payloads) {
+        this.message = message;
+        this.responseCode = responseCode;
+        this.payloads = payloads;
+    }
+
+    public S getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(S message) {
         this.message = message;
     }
 
@@ -27,18 +36,19 @@ public class Response<T> {
         this.responseCode = responseCode;
     }
 
-    public T getData() {
-        return data;
+    public Integer getLength() {
+        return length;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setLength(Integer length) {
+        this.length = length;
     }
 
-    public static Response getInstance(){
-        if (response == null){
-            return response = new Response();
-        }
-        return response;
+    public T getPayloads() {
+        return payloads;
+    }
+
+    public void setPayloads(T payloads) {
+        this.payloads = payloads;
     }
 }

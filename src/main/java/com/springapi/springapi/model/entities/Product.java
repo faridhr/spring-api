@@ -1,6 +1,7 @@
 package com.springapi.springapi.model.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -13,12 +14,16 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "name", length = 255) Contoh custom field
+    @NotEmpty(message = "Name is Required")
     private String name;
 
+    @NotEmpty(message = "Description is Required")
     private String description;
 
     private Double price;
+
+    @ManyToOne
+    private Category category;
 
     public Product() {
     }
@@ -61,4 +66,12 @@ public class Product implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
 }
