@@ -2,6 +2,7 @@ package com.springapi.springapi.controllers;
 
 import com.springapi.springapi.model.entities.Product;
 import com.springapi.springapi.model.entities.Response;
+import com.springapi.springapi.model.entities.Supplier;
 import com.springapi.springapi.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,13 +50,27 @@ public class ProductController {
         return ResponseEntity.ok().body(productResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<Product, String>> findOne (@PathVariable("id") Long id){
-        Product product = productService.findById(id);
-        Response<Product, String> response = new Response(
-                product != null ? "Data Product" : "Data Kosong", HttpStatus.OK.value(), product
-        );
-        return ResponseEntity.ok().body(response);
+    @GetMapping(value = "/search")
+    public ResponseEntity<Response<List<Product>, String>> findByName(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String nameLike,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Long supplierId
+    ){
+        Response<List<Product>, String> response = new Response<>("Data Product", HttpStatus.OK.value());
+        if (name != null){
+            response.setPayloads(productService.findByName(name));
+        }else if(id != null){
+            response.setPayloads(List.of(productService.findById(id)));
+        } else if(categoryId != null){
+            response.setPayloads(productService.findByCategoryId(categoryId));
+        } else if(nameLike != null) {
+            response.setPayloads(productService.findByNameLike(nameLike));
+        } else {
+            response.setPayloads(productService.findBySupplierId(supplierId));
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping
@@ -80,4 +96,10 @@ public class ProductController {
         Response<Product, String > response = new Response<>("Data berhasil dihapus", HttpStatus.OK.value(), null);
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/{id}")
+    public void addSupplier(@PathVariable Long id, @RequestBody Supplier supplier){
+        productService.addSupplier(supplier, id);
+    }
+
 }

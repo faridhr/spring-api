@@ -7,11 +7,16 @@ public class Response<T, S> {
 
     private Integer responseCode;
 
-    private Integer length;
 
     private T payloads;
 
     public Response() {
+
+    }
+
+    public Response(S message, Integer responseCode) {
+        this.message = message;
+        this.responseCode = responseCode;
     }
 
     public Response(S message, Integer responseCode, T payloads) {
@@ -34,14 +39,6 @@ public class Response<T, S> {
 
     public void setResponseCode(Integer responseCode) {
         this.responseCode = responseCode;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
     }
 
     public T getPayloads() {

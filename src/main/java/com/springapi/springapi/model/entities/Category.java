@@ -7,14 +7,17 @@ import java.io.Serializable;
 @Table(name = "category")
 public class Category implements Serializable {
 
+    public static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     public Category() {
+
     }
 
     public Category(Long id, String name) {
