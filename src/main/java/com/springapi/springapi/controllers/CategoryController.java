@@ -8,6 +8,7 @@ import com.springapi.springapi.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/category")
@@ -54,10 +56,11 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{size}/{page}/search")
+    @GetMapping(value = "/search")
     public ResponseEntity<Response<Iterable<Category>, String>> findById(
-            @PathVariable("size") Integer size,
-            @PathVariable("page") Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) String sort,
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name
     ){
@@ -65,7 +68,12 @@ public class CategoryController {
         if (id != null){
             response.setPayloads(List.of(categoryService.findById(id)));
         } else if (name != null) {
-            Pageable pageable = PageRequest.of(page, size);
+            Pageable pageable;
+            if (sort.equalsIgnoreCase("desc")){
+                pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 3, Sort.by("name").descending());
+            }else {
+                pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 3);
+            }
             response.setPayloads(categoryService.findByName(name, pageable));
         }
         return ResponseEntity.ok(response);

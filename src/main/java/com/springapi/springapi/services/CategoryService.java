@@ -20,6 +20,11 @@ public class CategoryService {
         return categoryRepo.save(category);
     }
 
+    //Create Category with Batch
+    public Iterable<Category> createBatch(Iterable<Category> listOfcategory){
+        return categoryRepo.saveAll(listOfcategory);
+    }
+
     public Iterable<Category> findAll(){
         return categoryRepo.findAll();
     }
