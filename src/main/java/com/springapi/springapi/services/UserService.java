@@ -2,6 +2,7 @@ package com.springapi.springapi.services;
 
 import com.springapi.springapi.configuration.PasswordHashConfiguration;
 import com.springapi.springapi.model.entities.User;
+import com.springapi.springapi.model.entities.UserRoles;
 import com.springapi.springapi.model.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +34,7 @@ public class UserService implements UserDetailsService {
         }
         String encode = passwordHashConfiguration.bCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encode);
+        user.setUserRoles(UserRoles.USER);
         return userRepo.save(user);
     }
 }

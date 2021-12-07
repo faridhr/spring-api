@@ -34,21 +34,23 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping
+    @PostMapping("/registration")
     public ResponseEntity<Response<User, ? extends Object>> register(@Valid @RequestBody UserData userData, Errors errors){
+        Response<User, String> response;
         if (errors.hasErrors()){
             List<String> listErrors = new ArrayList<>();
             errors.getAllErrors().forEach(e -> listErrors.add(e.getDefaultMessage()));
-            ResponseEntity.badRequest().body(
+            return ResponseEntity.badRequest().body(
                     new Response<User, List<String>>(
                             listErrors, HttpStatus.BAD_REQUEST.value(), null
                     )
             );
+        }else {
+            User user = mapperConfiguration.modelMapper().map(userData, User.class);
+            response = new Response<>(
+                    "Registration Successfull", HttpStatus.CREATED.value(), userService.userRegister(user)
+            );
         }
-        User user = mapperConfiguration.modelMapper().map(userData, User.class);
-        Response<User, String> response = new Response<>(
-                "Registration Successfull", HttpStatus.CREATED.value(), userService.userRegister(user)
-        );
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

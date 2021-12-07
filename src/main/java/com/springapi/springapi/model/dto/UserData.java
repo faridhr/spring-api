@@ -9,7 +9,7 @@ public class UserData {
     private String fullName;
 
     @NotEmpty(message = "Email is required")
-    @Email(message = "Email not valid")
+    @Email(message = "Invalid email format")
     private String email;
 
     @NotEmpty(message = "Password is required")
