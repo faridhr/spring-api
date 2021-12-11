@@ -38,10 +38,10 @@ public class UserController {
     public ResponseEntity<Response<User, ? extends Object>> register(@Valid @RequestBody UserData userData, Errors errors){
         Response<User, String> response;
         if (errors.hasErrors()){
-            List<String> listErrors = new ArrayList<>();
+            List<String> listErrors = new ArrayList<>(20);
             errors.getAllErrors().forEach(e -> listErrors.add(e.getDefaultMessage()));
             return ResponseEntity.badRequest().body(
-                    new Response<User, List<String>>(
+                    new Response<>(
                             listErrors, HttpStatus.BAD_REQUEST.value(), null
                     )
             );
