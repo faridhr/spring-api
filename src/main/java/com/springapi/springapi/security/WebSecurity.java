@@ -1,7 +1,7 @@
-package com.springapi.springapi.configuration;
+package com.springapi.springapi.security;
 
+import com.springapi.springapi.model.repos.UserRepo;
 import com.springapi.springapi.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,17 +14,28 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private UserService userService;
+    private UserRepo userRepo;
+
+    public WebSecurity(UserService userService, UserRepo userRepo) {
+        this.userService = userService;
+        this.userRepo = userRepo;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/v1/user/registration").permitAll()
+        http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(new JwtAuthFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepo))
+                .authorizeRequests()
+                .antMatchers("/api/v1/registration", "/login").permitAll()
+                .antMatchers("/api/v1/user/**").hasRole("USER")
+                .antMatchers("/api/v1/administrator/**").hasRole("ADMIN")
                 .anyRequest().fullyAuthenticated().and().httpBasic();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override

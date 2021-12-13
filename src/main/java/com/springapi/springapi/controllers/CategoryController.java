@@ -111,9 +111,9 @@ public class CategoryController {
         }
         categoryService.removeById(id);
         return ResponseEntity.ok(
-                response = new Response<>(
-                        "Data deleted", HttpStatus.OK.value(), null
-                )
+            response = new Response<>(
+                    "Data deleted", HttpStatus.OK.value(), null
+            )
         );
     }
 }

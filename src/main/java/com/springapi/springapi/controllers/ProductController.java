@@ -4,14 +4,13 @@ import com.springapi.springapi.model.entities.Product;
 import com.springapi.springapi.model.entities.Response;
 import com.springapi.springapi.model.entities.Supplier;
 import com.springapi.springapi.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,10 +18,11 @@ import java.util.List;
 @RequestMapping("api/v1/product")
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
 
-    private Response response;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @PostMapping
     public ResponseEntity<Response<Product,? extends Object>> create(@Valid @RequestBody Product product, Errors errors){
