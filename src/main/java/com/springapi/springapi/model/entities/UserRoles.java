@@ -1,5 +1,5 @@
 package com.springapi.springapi.model.entities;
 
 public enum UserRoles {
-    USER, ADMIN,
+    ROLE_USER, ROLE_ADMIN,
 }
