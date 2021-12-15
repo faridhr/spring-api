@@ -1,6 +1,6 @@
 package com.springapi.springapi.controllers;
 
-import com.springapi.springapi.configuration.MapperConfiguration;
+import com.springapi.springapi.configuration.bean.MapperBean;
 import com.springapi.springapi.model.dto.SupplierData;
 import com.springapi.springapi.model.entities.Response;
 import com.springapi.springapi.model.entities.Supplier;
@@ -23,7 +23,7 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @Autowired
-    private MapperConfiguration mapper;
+    private MapperBean mapper;
 
     @PostMapping
     public ResponseEntity<Response<Supplier, ? extends Object>> create(@Valid @RequestBody SupplierData supplierData, Errors errors){

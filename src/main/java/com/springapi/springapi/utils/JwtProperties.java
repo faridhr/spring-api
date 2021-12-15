@@ -8,6 +8,6 @@ public class JwtProperties {
 
     public static final String HEADER = "Authorization";
 
-    public static final int EXPIRED = 864_000_000; // 10 Days
+    public static final int EXPIRED = 3_600_000; // 1 Hour
 
 }

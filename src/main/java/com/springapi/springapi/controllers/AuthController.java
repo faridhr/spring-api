@@ -1,6 +1,6 @@
 package com.springapi.springapi.controllers;
 
-import com.springapi.springapi.configuration.MapperConfiguration;
+import com.springapi.springapi.configuration.bean.MapperBean;
 import com.springapi.springapi.model.dto.UserData;
 import com.springapi.springapi.model.entities.Response;
 import com.springapi.springapi.model.entities.User;
@@ -19,11 +19,11 @@ import java.util.List;
 @CrossOrigin
 public class AuthController {
 
-    private MapperConfiguration mapperConfiguration;
+    private MapperBean mapperBean;
     private UserService userService;
 
-    public AuthController(MapperConfiguration mapperConfiguration, UserService userService) {
-        this.mapperConfiguration = mapperConfiguration;
+    public AuthController(MapperBean mapperBean, UserService userService) {
+        this.mapperBean = mapperBean;
         this.userService = userService;
     }
 
@@ -39,7 +39,7 @@ public class AuthController {
                     )
             );
         }else {
-            User user = mapperConfiguration.modelMapper().map(userData, User.class);
+            User user = mapperBean.modelMapper().map(userData, User.class);
             response = new Response<>(
                     "Registration Successfull", HttpStatus.CREATED.value(), userService.userRegister(user)
             );

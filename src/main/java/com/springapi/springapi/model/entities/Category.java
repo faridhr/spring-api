@@ -1,11 +1,20 @@
 package com.springapi.springapi.model.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "category")
-public class Category implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Category extends Auditable<Long> implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
@@ -15,29 +24,4 @@ public class Category implements Serializable {
 
     @Column(nullable = false)
     private String name;
-
-    public Category() {
-
-    }
-
-    public Category(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

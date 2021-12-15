@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,11 @@ public class CategoryService {
     }
 
     public Category create(Category category){
+        if (category.getId() != null){
+            category.setUpdatedAt(new Date());
+            category.setCreatedBy(6L);
+            return categoryRepo.save(category);
+        }
         return categoryRepo.save(category);
     }
 

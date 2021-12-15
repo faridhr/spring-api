@@ -1,6 +1,6 @@
 package com.springapi.springapi.controllers;
 
-import com.springapi.springapi.configuration.MapperConfiguration;
+import com.springapi.springapi.configuration.bean.MapperBean;
 import com.springapi.springapi.model.entities.Response;
 import com.springapi.springapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private MapperConfiguration mapperConfiguration;
+    private MapperBean mapperBean;
 
 //    @GetMapping
     public ResponseEntity<Response<UserDetails, String>> findEmail(@RequestParam String email){

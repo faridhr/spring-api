@@ -1,7 +1,5 @@
 package com.springapi.springapi.security;
 
-import com.springapi.springapi.model.entities.User;
-import com.springapi.springapi.model.entities.UserRoles;
 import com.springapi.springapi.model.repos.UserRepo;
 import com.springapi.springapi.services.UserService;
 import org.springframework.context.annotation.Bean;
@@ -13,11 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity

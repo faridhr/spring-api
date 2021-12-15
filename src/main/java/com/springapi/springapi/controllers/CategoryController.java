@@ -1,6 +1,6 @@
 package com.springapi.springapi.controllers;
 
-import com.springapi.springapi.configuration.MapperConfiguration;
+import com.springapi.springapi.configuration.bean.MapperBean;
 import com.springapi.springapi.model.dto.CategoryData;
 import com.springapi.springapi.model.entities.Category;
 import com.springapi.springapi.model.entities.Response;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/category")
@@ -27,7 +26,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Autowired
-    private MapperConfiguration mapper;
+    private MapperBean mapper;
 
     @PostMapping
     public ResponseEntity<Response<Category, ? extends Object>> create(@Valid @RequestBody CategoryData categoryData, Errors errors){
