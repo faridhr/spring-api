@@ -22,7 +22,7 @@ public class CategoryService {
     public Category create(Category category){
         if (category.getId() != null){
             category.setUpdatedAt(new Date());
-            category.setCreatedBy(6L);
+            category.setUpdatedBy("rahman@mail.com");
             return categoryRepo.save(category);
         }
         return categoryRepo.save(category);

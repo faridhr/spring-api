@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category extends Auditable<Long> implements Serializable {
+public class Category extends Auditable<String> implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
