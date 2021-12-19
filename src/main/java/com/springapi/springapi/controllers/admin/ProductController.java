@@ -1,4 +1,4 @@
-package com.springapi.springapi.controllers;
+package com.springapi.springapi.controllers.admin;
 
 import com.springapi.springapi.model.entities.Product;
 import com.springapi.springapi.model.entities.Response;
@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/product")
+@RequestMapping("api/v1/administrator/product")
 public class ProductController {
 
     private ProductService productService;

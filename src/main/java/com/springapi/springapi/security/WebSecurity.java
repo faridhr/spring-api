@@ -1,5 +1,6 @@
 package com.springapi.springapi.security;
 
+import com.springapi.springapi.configuration.bean.UserBean;
 import com.springapi.springapi.model.repos.UserRepo;
 import com.springapi.springapi.services.UserService;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.springapi.springapi.controllers;
+package com.springapi.springapi.controllers.admin;
 
 import com.springapi.springapi.configuration.bean.MapperBean;
 import com.springapi.springapi.model.dto.SupplierData;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/supplier")
+@RequestMapping("api/v1/administrator/supplier")
 public class SupplierController {
 
     @Autowired

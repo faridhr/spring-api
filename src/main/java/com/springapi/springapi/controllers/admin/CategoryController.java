@@ -1,4 +1,4 @@
-package com.springapi.springapi.controllers;
+package com.springapi.springapi.controllers.admin;
 
 import com.springapi.springapi.configuration.bean.MapperBean;
 import com.springapi.springapi.model.dto.CategoryData;
@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/category")
+@RequestMapping("api/v1/administrator/category")
 public class CategoryController {
 
     @Autowired

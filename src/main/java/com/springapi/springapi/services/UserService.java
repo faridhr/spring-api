@@ -2,13 +2,15 @@ package com.springapi.springapi.services;
 
 import com.springapi.springapi.security.PasswordHash;
 import com.springapi.springapi.model.entities.User;
-import com.springapi.springapi.model.entities.UserRoles;
 import com.springapi.springapi.model.repos.UserRepo;
 import com.springapi.springapi.security.UserDetailsImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.IllegalFormatException;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -24,8 +26,16 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format("email '%s' not found", email)));
-        UserDetailsImpl userDetails = new UserDetailsImpl(user);
-        return userDetails;
+        return new UserDetailsImpl(user);
+    }
+
+    public User getUserLogin(){
+        try {
+            return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public User userRegister(User user){
